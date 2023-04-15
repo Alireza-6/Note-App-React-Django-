@@ -1,1 +1,1 @@
-# Note-App-React-Django-
+# Note-App (React-Django)
