@@ -8,9 +8,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'api.apps.ApiConfig',
+]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'rest_framework',
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
