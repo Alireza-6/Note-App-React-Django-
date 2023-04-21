@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -44,7 +45,7 @@ def get_routes(request):
 
 @api_view(['GET'])
 def get_notes(request):
-    notes = Note.objects.all()
+    notes = Note.objects.all().order_by("-updated")
     res = NoteSerializer(notes, many=True)
     return Response(res.data)
 
@@ -54,3 +55,12 @@ def get_note(request, pk):
     notes = Note.objects.get(id=pk)
     res = NoteSerializer(notes)
     return Response(res.data)
+
+
+@api_view(['PUT'])
+def update_note(request, pk):
+    note = get_object_or_404(Note, id=pk)
+    serializer = NoteSerializer(data=request.data, instance=note)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(serializer.data)
