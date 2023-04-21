@@ -64,3 +64,10 @@ def update_note(request, pk):
     serializer.is_valid(raise_exception=True)
     serializer.save()
     return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def delete_note(request, pk):
+    note = get_object_or_404(Note, id=pk)
+    note.delete()
+    return Response("Note was deleted")
