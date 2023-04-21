@@ -57,6 +57,15 @@ def get_note(request, pk):
     return Response(res.data)
 
 
+@api_view(['POST'])
+def create_note(request):
+    note = Note.objects.create(
+        body=request.data.get('body')
+    )
+    serializer = NoteSerializer(note)
+    return Response(serializer.data)
+
+
 @api_view(['PUT'])
 def update_note(request, pk):
     note = get_object_or_404(Note, id=pk)
